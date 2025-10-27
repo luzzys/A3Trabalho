@@ -1,1 +1,30 @@
+using UnityEngine;
 
+public class PipeSpawner : MonoBehaviour
+{
+    public GameObject pipePrefab;
+    public float spawnRate = 2f;
+    public float heightOffset = 2f;
+
+    private float timer = 0f;
+
+    void Update()
+    {
+        if (timer < spawnRate)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            SpawnPipe();
+            timer = 0;
+        }
+    }
+
+    void SpawnPipe()
+    {
+        float randomY = Random.Range(-heightOffset, heightOffset);
+        Vector3 spawnPos = transform.position + new Vector3(0, randomY, 0);
+        Instantiate(pipePrefab, spawnPos, Quaternion.identity);
+    }
+}
